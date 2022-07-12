@@ -47,12 +47,8 @@ public class MovieServiceTest {
         //se hace llamado al metodo que estamos probando y agregamos su valor a probar
         Collection<Movie> movies = movieService.findMoviesByGenre(Genre.COMEDY);
 
-        //a continuacion conseguiremos los id de las peliculas y los guardaremos en una lista
-        // List<Integer> moviesId = movies.stream().map(movie -> movie.getId()).collect(Collectors.toList());
-        List<Integer> moviesId = getMovieIds(movies);
-
         // comparamos que la coleccion de movies que nos regresa son los mismos que esperamos
-        assertThat(moviesId, CoreMatchers.is(Arrays.asList(3,6)));
+        assertThat(getMovieIds(movies), CoreMatchers.is(Arrays.asList(3,6)));
     }
 
     @Test
@@ -60,20 +56,15 @@ public class MovieServiceTest {
         //se hace llamado al metodo que estamos probando y agregamos su valor a probar
         Collection<Movie> movies = movieService.findMoviesByLengh(119);
 
-        //a continuacion conseguiremos los id de las peliculas y los guardaremos en una lista
-        // List<Integer> moviesId = movies.stream().map(movie -> movie.getId()).collect(Collectors.toList());
-        List<Integer> moviesId = getMovieIds(movies);
-
         // comparamos que la coleccion de movies que nos regresa son los mismos que esperamos
-        assertThat(moviesId, CoreMatchers.is(Arrays.asList(2,3,4,5,6)));
+        assertThat(getMovieIds(movies), CoreMatchers.is(Arrays.asList(2,3,4,5,6)));
     }
 
-    // para cuando tenemos lineas de codigo que se necesitan en varias pruebas se
-    //se puede hacer un refactor -> extract -> Method y asi tener un metodo que se puede llamar en todas las pruebas
 
     private List<Integer> getMovieIds(Collection<Movie> movies) {
-        List<Integer> moviesId = movies.stream().map(Movie::getId).collect(Collectors.toList());
-        return moviesId;
+        // para cuando tenemos lineas de codigo que se necesitan en varias pruebas se
+        //se puede hacer un refactor -> extract -> Method y asi tener un metodo que se puede llamar en todas las pruebas
+        return movies.stream().map(Movie::getId).collect(Collectors.toList());
     }
 
 
